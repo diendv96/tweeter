@@ -23,18 +23,23 @@ class SendMessage extends Component {
 
         this.remainingRef.current.innerHTML = max_allowed - messageLen;
         this.remainingRef.current.className = messageLen > max_allowed - warnAt ? "warn" : "";
+        this.submitRef.current.disabled = messageLen === 0;
     }
 
     submitMessage(event) {
-
+        event.preventDefault();
+        let message = this.messageNode.value;
+        this.props.addMessage(message);
     }
 
     render() {
         return (
             <div>
-                <form action="">
+                <form onSubmit={this.submitMessage}>
                     <textarea id="tweet" rows="3" placeholder="Start a new message"
-                              onKeyUp={this.countChars} onSubmit={this.submitMessage}/>
+                              onKeyUp={this.countChars} onSubmit={this.submitMessage}
+                              ref={node => (this.messageNode = node)}
+                    />
                     <div className="bottom">
                         <span ref={this.remainingRef}>{this.state.maxAllowedCharacter}</span>
                         <button type="submit" tabIndex="0" ref={this.submitRef} disabled>

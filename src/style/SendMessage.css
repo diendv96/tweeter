@@ -93,37 +93,3 @@ textarea::placeholder {
 .warn {
     color: #c00;
 }
-/* Pre-morphing stage */
-.pre-morph > .svgs {
-    visibility: visible;
-    animation: flyAway 1.5s 1s ease-in-out forwards;
-}
-.pre-morph svg:last-of-type {
-    animation: appear 1s 0.65s linear forwards;
-}
-.pre-morph svg:last-of-type path:last-child {
-    animation: flap 0.5s 1s linear infinite;
-}
-.pre-morph > *:nth-child(n + 1):nth-child(-n + 3) {
-    animation: fadeOut 0.2s linear forwards;
-}
-@keyframes fadeOut {
-    from { opacity: 1; visibility: visible }
-    to { opacity: 0; visibility: hidden }
-}
-@keyframes appear {
-    from, to { visibility: visible }
-}
-@keyframes flyAway {
-    from { transform: translate(0,-4em) }
-    50% { transform: translate(0,-6em) scale(1); opacity: 1 }
-    to { transform: translate(30em,-9em) scale(0); opacity: 0 }
-}
-@keyframes flap {
-    from, to {
-        transform: translate(7.75em, 4.99em) rotateY(0) translate(-7.75em, -4.99em);
-    }
-    50% {
-        transform: translate(7.75em, 4.99em) rotateY(160deg) translate(-7.75em, -4.99em);
-    }
-}
