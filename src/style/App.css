@@ -1,0 +1,16 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body, button, textarea {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 18px;
+}
+body, textarea {
+    color: #222;
+}
+body {
+    height: 100vh;
+    overflow: hidden;
+}
