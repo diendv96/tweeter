@@ -22,7 +22,7 @@ const fetchWhiskiesEpic = $action => $action.ofType(ActionTypes.FETCH_MESSAGES)
 const postMessageEpic = $action => $action.ofType(ActionTypes.POST_MESSAGE)
     .mergeMap(action => {
         return ajax.post(
-            url,
+            BASE_URL,
             JSON.stringify(action.payload),
             {'Content-Type': 'application/json'}
         )
