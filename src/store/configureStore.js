@@ -1,5 +1,9 @@
-import {combineReducers, compose, createStore} from 'redux';
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import {Messages} from '../reducer/message'
+import {createEpicMiddleware} from 'redux-observable';
+import {rootEpic} from '../actions/epics'
+
+const epicMiddleware = createEpicMiddleware();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -8,8 +12,10 @@ export const ConfigureStore = () => {
         combineReducers({
             messages: Messages,
         }),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        composeEnhancers(applyMiddleware(epicMiddleware))
     );
+
+    epicMiddleware.run(rootEpic);
 
     return store;
 };

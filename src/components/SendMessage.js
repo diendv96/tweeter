@@ -16,6 +16,10 @@ class SendMessage extends Component {
         this.submitRef = React.createRef();
     }
 
+    componentDidMount() {
+        this.props.fetchMessages();
+    }
+
     countChars(event) {
         let messageLen = event.target.value.length;
         let max_allowed = this.state.maxAllowedCharacter;
