@@ -27,7 +27,7 @@ export const Messages = (state = {
         case ActionTypes.ADD_MESSAGE:
             return {
                 ...state,
-                messages: action.payload
+                messages: state.messages.concat(action.payload)
             };
         default:
             return state;

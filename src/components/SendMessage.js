@@ -32,8 +32,14 @@ class SendMessage extends Component {
 
     submitMessage(event) {
         event.preventDefault();
-        let message = this.messageNode.value;
+        let message = {
+            id: 10,
+            message: this.messageNode.value,
+            date: new Date()
+        };
+
         this.props.addMessage(message);
+        this.messageNode.value = "";
     }
 
     render() {

@@ -1,5 +1,5 @@
 form, svg, .svgs {
-    position: absolute;
+    position: relative;
 }
 /* Tweet form */
 form {

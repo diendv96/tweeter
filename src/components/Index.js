@@ -4,10 +4,11 @@ import {addMessage, fetchMessages} from "../actions/ActionCreators";
 
 import SendMessage from "./SendMessage";
 import '../style/Index.css';
+import ShowMessage from "./ShowMessage";
 
 const mapStateToProps = state => {
     return {
-        messages: state.messages
+        tweetMessages: state.tweetMessages
     }
 };
 
@@ -22,6 +23,7 @@ class Index extends Component {
             <div className="container">
                 <h1>Tweeter App</h1>
                 <SendMessage addMessage={this.props.addMessage} fetchMessages={this.props.fetchMessages}/>
+                <ShowMessage messages={this.props.tweetMessages.messages}/>
             </div>
         );
     }
