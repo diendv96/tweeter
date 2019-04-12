@@ -1,5 +1,6 @@
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -7,7 +8,7 @@ import {ajax} from 'rxjs/observable/dom/ajax';
 import {combineEpics} from 'redux-observable';
 
 import * as ActionTypes from './ActionTypes';
-import {fetchMessagesFailure, fetchMessagesSuccess} from './ActionCreators'
+import {addMessage, fetchMessagesFailure, fetchMessagesSuccess, postMessageFailure} from './ActionCreators'
 
 const url = 'http://localhost:3001/messages/';
 
@@ -19,4 +20,15 @@ const fetchWhiskiesEpic = $action => $action.ofType(ActionTypes.FETCH_MESSAGES)
     })
     .catch(error => Observable.of(fetchMessagesFailure(error.message)));
 
-export const rootEpic = combineEpics(fetchWhiskiesEpic);
+const postMessageEpic = $action => $action.ofType(ActionTypes.POST_MESSAGE)
+    .mergeMap(action => {
+        return ajax.post(
+            url,
+            JSON.stringify(action.payload),
+            {'Content-Type': 'application/json'}
+        )
+            .map(response => addMessage(response.response))
+            .catch(error => Observable.of(postMessageFailure(error)))
+    });
+
+export const rootEpic = combineEpics(fetchWhiskiesEpic, postMessageEpic);

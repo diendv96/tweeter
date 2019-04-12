@@ -24,6 +24,12 @@ export const Messages = (state = {
                 isLoading: false,
                 errMess: action.payload
             };
+        case ActionTypes.POST_MESSAGE:
+            return {
+                ...state,
+                isLoading: true,
+                errMess: null
+            };
         case ActionTypes.ADD_MESSAGE:
             return {
                 ...state,

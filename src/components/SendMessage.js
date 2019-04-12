@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import '../style/SendMessage.css'
+import shortid from 'shortid'
 
 
 class SendMessage extends Component {
@@ -16,10 +17,6 @@ class SendMessage extends Component {
         this.submitRef = React.createRef();
     }
 
-    componentDidMount() {
-        this.props.fetchMessages();
-    }
-
     countChars(event) {
         let messageLen = event.target.value.length;
         let max_allowed = this.state.maxAllowedCharacter;
@@ -33,12 +30,12 @@ class SendMessage extends Component {
     submitMessage(event) {
         event.preventDefault();
         let message = {
-            id: 10,
+            id: shortid.generate(),
             message: this.messageNode.value,
             date: new Date()
         };
 
-        this.props.addMessage(message);
+        this.props.postMessage(message);
         this.messageNode.value = "";
     }
 

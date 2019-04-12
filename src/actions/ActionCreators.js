@@ -18,3 +18,13 @@ export const fetchMessagesFailure = (err) => ({
     type: ActionTypes.FETCH_MESSAGES_FAILURE,
     payload: err
 });
+
+export const postMessage = (message) => ({
+    type: ActionTypes.POST_MESSAGE,
+    payload: message
+});
+
+export const postMessageFailure = (err) => ({
+    type: ActionTypes.POST_MESSAGE_FAILURE,
+    payload: err
+});

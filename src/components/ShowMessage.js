@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/ShowMessage.css'
 
 const RenderMessage = ({message}) => (
-    <li className="message" key={message.id}>{message.message}</li>
+    <li className="message">{message.message}</li>
 );
 
 const ShowMessage = ({messages}) => {
@@ -11,7 +11,7 @@ const ShowMessage = ({messages}) => {
             <ul className="messages">
                 {
                     messages.map(message => (
-                        <RenderMessage message={message}/>
+                        <RenderMessage key={message.id} message={message}/>
                     ))
                 }
             </ul>

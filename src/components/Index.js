@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {addMessage, fetchMessages} from "../actions/ActionCreators";
+import {addMessage, fetchMessages, postMessage} from "../actions/ActionCreators";
 
 import SendMessage from "./SendMessage";
 import '../style/Index.css';
@@ -14,15 +14,20 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     addMessage: (message) => dispatch(addMessage(message)),
-    fetchMessages: () => dispatch(fetchMessages())
+    fetchMessages: () => dispatch(fetchMessages()),
+    postMessage: (message) => dispatch(postMessage(message))
 });
 
 class Index extends Component {
+    componentDidMount() {
+        this.props.fetchMessages();
+    }
+
     render() {
         return (
             <div className="container">
                 <h1>Tweeter App</h1>
-                <SendMessage addMessage={this.props.addMessage} fetchMessages={this.props.fetchMessages}/>
+                <SendMessage addMessage={this.props.addMessage} postMessage={this.props.postMessage}/>
                 <ShowMessage messages={this.props.tweetMessages.messages}/>
             </div>
         );
