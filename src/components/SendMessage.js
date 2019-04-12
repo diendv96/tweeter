@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import '../style/SendMessage.css'
-import shortid from 'shortid'
+import shortid from 'shortid';
+import SplitMessageService from '../service/SplitMessage';
+import {MESSAGE_LENGTH_LIMIT} from "../constant/abstract";
 
 
 class SendMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            maxAllowedCharacter: 50
+            maxAllowedCharacter: MESSAGE_LENGTH_LIMIT
         };
 
         this.countChars = this.countChars.bind(this);
@@ -28,14 +30,23 @@ class SendMessage extends Component {
     }
 
     submitMessage(event) {
-        event.preventDefault();
-        let message = {
-            id: shortid.generate(),
-            message: this.messageNode.value,
-            date: new Date()
-        };
+        let messages = [];
 
-        this.props.postMessage(message);
+        try {
+            messages = SplitMessageService.splitMessage(this.messageNode.value);
+        } catch (e) {
+            alert("Your message is too long!")
+        } finally {
+            event.preventDefault();
+
+            messages.map(message => {
+                this.props.postMessage({
+                    id: shortid.generate(),
+                    message: message,
+                    date: new Date()
+                });
+            });
+        }
         this.messageNode.value = "";
     }
 

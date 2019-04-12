@@ -9,13 +9,12 @@ import {combineEpics} from 'redux-observable';
 
 import * as ActionTypes from './ActionTypes';
 import {addMessage, fetchMessagesFailure, fetchMessagesSuccess, postMessageFailure} from './ActionCreators'
-
-const url = 'http://localhost:3001/messages/';
+import {BASE_URL} from "../constant/abstract";
 
 const fetchWhiskiesEpic = $action => $action.ofType(ActionTypes.FETCH_MESSAGES)
     .switchMap(() => {
         return ajax
-            .getJSON(url)
+            .getJSON(BASE_URL)
             .map(data => fetchMessagesSuccess(data))
     })
     .catch(error => Observable.of(fetchMessagesFailure(error.message)));
