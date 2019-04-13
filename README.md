@@ -11,6 +11,6 @@ In the project directory, you can run:
 
 ### `npm start`
 
-## Or use Docker
+## Or use Docker (Now only can use for local testing)
 ### `docker build . -t tweeter:1.0`
 ### `docker run -p 8080:80 tweeter:1.0`
