@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -20,7 +20,7 @@ const fetchWhiskiesEpic = $action => $action.ofType(ActionTypes.FETCH_MESSAGES)
     .catch(error => Observable.of(fetchMessagesFailure(error.message)));
 
 const postMessageEpic = $action => $action.ofType(ActionTypes.POST_MESSAGE)
-    .mergeMap(action => {
+    .concatMap(action => {
         return ajax.post(
             BASE_URL,
             JSON.stringify(action.payload),
