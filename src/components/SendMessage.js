@@ -35,7 +35,7 @@ class SendMessage extends Component {
         try {
             messages = SplitMessageService.splitMessage(this.messageNode.value);
         } catch (e) {
-            alert("Your message is too long!")
+            alert("Message contains a span of non-whitespace characters longer than 50 characters í not supported!")
         } finally {
             event.preventDefault();
 
